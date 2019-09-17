@@ -53,14 +53,6 @@ const mysqlConnect = util.promisify(mysql.connect).bind(mysql);
 async function core() {
 
   const filters = {
-    "buy": {
-      type: 1,
-      order: "DESC",
-    },
-    "sell": {
-      type: 2,
-      order: "ASC",
-    },
     "skrill_dollar_gaming": {
       payment: 3,
       valute: 1,
@@ -106,24 +98,22 @@ async function core() {
     "neteller_euro_common": {},
   };
 
-  const sql = `SELECT id, min_amount as min, count as max, unit_price as price FROM orders WHERE payment = ? AND valute = ? AND type = ? AND disabled = 0 ORDER BY unit_price ?`;
+  const sql = `SELECT id, min_amount as min, count as max, unit_price as price FROM orders WHERE payment = ? AND valute = ? AND type = ? AND disabled = 0 ORDER BY unit_price`;
 
   const orderPromises = []; 
 
   for (const orderName of Object.getOwnPropertyNames(orders)) {
-    orders[orderName].buy = await mysqlQuery(sql, [
+    orders[orderName].buy = await mysqlQuery(`${sql} DESC`, [
       filters[orderName].payment,
       filters[orderName].valute,
-      filters.buy.type,
-      filters.buy.order,
+      1
     ]);
     orderPromises.push(orders[orderName].buy);
 
-    orders[orderName].sell = await mysqlQuery(sql, [
+    orders[orderName].sell = await mysqlQuery(`${sql} ASC`, [
       filters[orderName].payment,
       filters[orderName].valute,
-      filters.sell.type,
-      filters.sell.order,
+      2,
     ]);
     orderPromises.push(orders[orderName].sell);
   }
