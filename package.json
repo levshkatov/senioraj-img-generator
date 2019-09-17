@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/levshkatov/senioraj-img-generator#readme",
   "dependencies": {
+    "colors": "^1.3.3",
     "console-stamp": "^0.2.9",
     "express": "^4.17.1",
     "mysql": "^2.17.1"
