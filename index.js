@@ -28,7 +28,6 @@ consoleStamp(console, {
 const log = console.log;
 const error = console.error;
 
-const mysql = 1;
 const mysql = mysqlObj.createConnection({
   host: "localhost",
   user: "root",
