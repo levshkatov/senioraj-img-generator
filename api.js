@@ -24,3 +24,4 @@ for (const type of Object.getOwnPropertyNames(types)) {
   });
 }
 
+module.exports = router;
