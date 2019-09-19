@@ -51,13 +51,13 @@ const generate = async (orders, params) => {
     }
   } catch(e){}
   try {
-    fileName = "4-410х96.png";
+    fileName = "4-419х96.png";
     if (await exists(`${folderPath}/${fileName}`)) {
       file4 = true;
     }
   } catch(e){}
   try {
-    fileName = "5-410х96.png";
+    fileName = "5-419х96.png";
     if (await exists(`${folderPath}/${fileName}`)) {
       file5 = true;
     }
@@ -172,7 +172,7 @@ const generate = async (orders, params) => {
     numOfRows++;
   }
 
-  const tableHeight = headerHeight+cellHeight*(4+numOfRows);
+  const tableHeight = headerHeight+cellHeight*(5+numOfRows);
 
   ctx.lineWidth = lineWidthBig;
   ctx.strokeRect(xOffset, yOffset, tableWidth, tableHeight);
@@ -235,13 +235,13 @@ const generate = async (orders, params) => {
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight, tableWidth, cellHeight*4);
     }
 
-    fileName = "4-410х96.png";
+    fileName = "4-419х96.png";
     if (file4) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight*6, tableWidth/2-advSpace, cellHeight*4);
     }
 
-    fileName = "5-410х96.png";
+    fileName = "5-419х96.png";
     if (file5) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*6, tableWidth/2-advSpace, cellHeight*4);
@@ -257,11 +257,6 @@ const generate = async (orders, params) => {
   await addAds();
 
   return Buffer.from(canvas.toDataURL().replace(/^data:image\/\w+;base64,/, ""), 'base64');
-
-  // const img = Buffer.from(canvas.toDataURL().replace(/^data:image\/\w+;base64,/, ""), 'base64');
-
-  // await writeFile("./index.png", img);
-  // console.log(`index.png updated`);
 }
 
 
