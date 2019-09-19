@@ -36,7 +36,7 @@ const mysql = mysqlObj.createConnection({
 });
 
 const mysqlQuery = util.promisify(mysql.query).bind(mysql);
-const mysqlConnect = util.promisify(mysql.connect).bind(mysql);
+// const mysqlConnect = util.promisify(mysql.connect).bind(mysql);
 
 
 const app = express();
@@ -53,7 +53,6 @@ app.use('/', api);
   });
 
   try {
-    await mysqlConnect();
     log(`Connected to database "exchange"`);
     const orders = {
       "skrill_dollar_gaming": {
@@ -357,10 +356,10 @@ app.use('/', api);
         ]
       }
     }
-  } catch(err) {
+  } catch (err) {
     console.error(colors.red(err));
   } finally {
-    mysql.end();
+    // mysql.end();
     log(colors.yellow("***   Image Generator closed   ***"));
   }
 })();
@@ -411,26 +410,33 @@ async function newRequest(res, type) {
     },
   }
 
-  const orders = await getOrders(type);
+  try {
+    const orders = await getOrders(type);
 
-  const image = await imgGenerate(orders, {
-    tableName: typesObj.type.tableName,
-    currency: typesObj.type.currency,
-    adsFolderName: typesObj.type.folderName,
-  });
+    const image = await imgGenerate(orders, {
+      tableName: typesObj.type.tableName,
+      currency: typesObj.type.currency,
+      adsFolderName: typesObj.type.folderName,
+    });
 
-  const fileName = `${Date.now()}.png`;
-  await writeFile(`./images/${fileName}`, image);
-  console.log(`${fileName} written`);
+    const fileName = `${Date.now()}.png`;
+    await writeFile(`./images/${fileName}`, image);
+    console.log(`${fileName} written`);
 
-  return res.sendFile(`./images/${fileName}`, {
-    root: __dirname,
-  }, (err) => {
-    if (err) {
-      return error(err);
-    }
-    log("File sent");
-  });
+    return res.sendFile(`./images/${fileName}`, {
+      root: __dirname,
+    }, (err) => {
+      if (err) {
+        error(err);
+        return res.status(404).send(`Error on server`);
+      }
+      log("File sent");
+    });
+
+  } catch (err) {
+    error(err);
+    return res.status(404).send(`Error on server`);
+  }
 }
 
 

@@ -2,10 +2,6 @@ const core = require("./index");
 const express = require("express");
 const router = express.Router();
 
-router.use(function(req, res, next) {
-  next();
-});
-
 const types = {
   "skrill-dollar-gaming": "skrill_dollar_gaming",
   "skrill-euro-gaming": "skrill_euro_gaming",
@@ -20,7 +16,7 @@ const types = {
 for (const type of Object.getOwnPropertyNames(types)) {
   router.get(`/${type}`, (req, res) => {
     console.log(`Request: ${type}`);
-    return core.newRequest(res, types.type);
+    return core.newRequest(res, types[type]);
   });
 }
 
