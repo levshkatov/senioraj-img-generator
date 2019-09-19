@@ -2,6 +2,10 @@ const core = require("./index");
 const express = require("express");
 const router = express.Router();
 
+router.use(function(req, res, next) {
+  next();
+});
+
 const types = {
   "skrill-dollar-gaming": "skrill_dollar_gaming",
   "skrill-euro-gaming": "skrill_euro_gaming",
