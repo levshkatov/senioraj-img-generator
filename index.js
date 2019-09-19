@@ -119,7 +119,7 @@ async function newRequest(res, type) {
         error(colors.red(err));
         return res.status(404).send(`Error on server`);
       }
-      log("File sent");
+      log(`${fileName} sent`);
     });
 
   } catch (err) {
