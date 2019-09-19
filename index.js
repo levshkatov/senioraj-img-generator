@@ -9,6 +9,7 @@ const consoleStamp = require("console-stamp");
 const util = require("util");
 const colors = require("colors/safe");
 const { imgGenerate } = require("./img-generator");
+const fs = require('fs');
 
 const PORT = 8444;
 
@@ -37,6 +38,7 @@ const mysql = mysqlObj.createConnection({
 
 const mysqlQuery = util.promisify(mysql.query).bind(mysql);
 // const mysqlConnect = util.promisify(mysql.connect).bind(mysql);
+const writeFile = util.promisify(fs.writeFile);
 
 
 const app = express();
@@ -114,14 +116,14 @@ async function newRequest(res, type) {
       root: __dirname,
     }, (err) => {
       if (err) {
-        error(err);
+        error(colors.red(err));
         return res.status(404).send(`Error on server`);
       }
       log("File sent");
     });
 
   } catch (err) {
-    error(err);
+    error(colors.red(err));
     return res.status(404).send(`Error on server`);
   }
 }
