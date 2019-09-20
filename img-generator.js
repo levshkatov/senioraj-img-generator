@@ -91,7 +91,7 @@ const generate = async (orders, params) => {
 
 
   //header
-  ctx.lineWidth = lineWidthBig;
+  ctx.lineWidth = lineWidthLittle;
   ctx.strokeStyle = 'black';
   ctx.strokeRect(xOffset, yOffset, tableWidth, headerHeight);
   ctx.lineWidth = lineWidthLittle;
@@ -174,7 +174,7 @@ const generate = async (orders, params) => {
 
   const tableHeight = headerHeight+cellHeight*(5+numOfRows);
 
-  ctx.lineWidth = lineWidthBig;
+  ctx.lineWidth = lineWidthLittle;
   ctx.strokeRect(xOffset, yOffset, tableWidth, tableHeight);
 
   
