@@ -69,7 +69,7 @@ const generate = async (orders, params) => {
   ? orders.buy.length 
   : orders.sell.length;
 
-  const advExtraSpace = (file4 || file5) ? 4*2 + (cellHeight/3)*2 : (file3) ? 4 + cellHeight/3 : 0;
+  const advExtraSpace = (file4 || file5) ? 4*2 + 2/3 : (file3) ? 4 + 1/3 : 0;
 
   const totalHeight = headerHeight + cellHeight * (4 + maxNumOfRows + advExtraSpace) + yOffset*2;
 
@@ -213,7 +213,7 @@ const generate = async (orders, params) => {
 
   async function addAds() {
 
-    const advSpace = 1;
+    const advSpace = 8;
     const folderPath = `./advertisements/${params.adsFolderName}`;
 
     let fileName = "1-280х120.png";
