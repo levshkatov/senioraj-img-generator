@@ -12,7 +12,7 @@ const xOffset = 0;
 const yOffset = 0;
 const lineWidthBig = 3;
 const lineWidthLittle = 1;
-const tableWidth = WIDTH - yOffset*2;
+const tableWidth = WIDTH - xOffset*2;
 const cellHeight = 24;
 const cellWidth = tableWidth / 12;
 const headerHeight = cellHeight * 5;
@@ -69,10 +69,9 @@ const generate = async (orders, params) => {
   ? orders.buy.length 
   : orders.sell.length;
 
-  const advBottom = (file4 || file5) ? 10 : 0;
-  const advMiddle = (!advBottom && file3) ? 5 : 0;
+  const advExtraSpace = (file4 || file5) ? 4*2 + (cellHeight/3)*2 : (file3) ? 4 + cellHeight/3 : 0;
 
-  const totalHeight = headerHeight + cellHeight * (4 + maxNumOfRows + advBottom + advMiddle) + yOffset*2;
+  const totalHeight = headerHeight + cellHeight * (4 + maxNumOfRows + advExtraSpace) + yOffset*2;
 
   let totalBuy = 0;
   orders.buy.forEach(order => totalBuy += order.max);
@@ -172,7 +171,7 @@ const generate = async (orders, params) => {
     numOfRows++;
   }
 
-  const tableHeight = headerHeight+cellHeight*(5+numOfRows);
+  const tableHeight = headerHeight+cellHeight*(4+maxNumOfRows);
 
   ctx.lineWidth = lineWidthLittle;
   ctx.strokeRect(xOffset, yOffset, tableWidth, tableHeight);
@@ -232,19 +231,19 @@ const generate = async (orders, params) => {
     fileName = "3-840х96.png";
     if (file3) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
-      ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight, tableWidth, cellHeight*4);
+      ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
     }
 
     fileName = "4-419х96.png";
     if (file4) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
-      ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight*6, tableWidth/2-advSpace, cellHeight*4);
+      ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     fileName = "5-419х96.png";
     if (file5) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
-      ctx.drawImage(adv, xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*6, tableWidth/2-advSpace, cellHeight*4);
+      ctx.drawImage(adv, xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     // bottom borders
