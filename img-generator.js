@@ -90,8 +90,9 @@ const generate = async (orders, params) => {
 
 
   //header
-  ctx.lineWidth = lineWidthLittle;
+  ctx.lineWidth = lineWidthBig;
   ctx.strokeStyle = 'black';
+  ctx.strokeRect(xOffset, yOffset, tableWidth, headerHeight);
   ctx.strokeRect(xOffset, yOffset, tableWidth, headerHeight);
   ctx.lineWidth = lineWidthLittle;
   ctx.strokeRect(xOffset+cellWidth*4, yOffset, cellWidth*4, headerHeight);
@@ -100,7 +101,7 @@ const generate = async (orders, params) => {
   ctx.fillStyle = "black";
   ctx.font = 'bold 35px Arial';
   ctx.fillText('Книга заявок', xOffset+tableWidth/2, yOffset+cellHeight*1.5);
-  ctx.font = '20px Arial';
+  ctx.font = 'bold 20px Arial';
   ctx.fillText(params.tableName, xOffset+tableWidth/2, yOffset+cellHeight*4);
 
 
@@ -173,8 +174,10 @@ const generate = async (orders, params) => {
 
   const tableHeight = headerHeight+cellHeight*(4+maxNumOfRows);
 
-  ctx.lineWidth = lineWidthLittle;
-  ctx.strokeRect(xOffset, yOffset, tableWidth, tableHeight);
+  ctx.lineWidth = lineWidthBig;
+  ctx.strokeRect(xOffset, yOffset, tableWidth, tableHeight-headerHeight);
+  ctx.strokeRect(xOffset, yOffset, tableWidth/2, tableHeight-headerHeight);
+  ctx.strokeRect(xOffset, yOffset+tableWidth/2, tableWidth/2, tableHeight-headerHeight);
 
   
 
@@ -182,6 +185,7 @@ const generate = async (orders, params) => {
     const rowOrderYOffset = headerHeight+yOffset+cellHeight*4+numOfRows*cellHeight;
 
     ctx.lineWidth = lineWidthLittle;
+    ctx.strokeRect(xOffset, rowOrderYOffset, tableWidth, cellHeight);
     ctx.strokeRect(xOffset, rowOrderYOffset, tableWidth, cellHeight);
 
     if (type === "buy") {
@@ -196,6 +200,7 @@ const generate = async (orders, params) => {
       ctx.fillText(order.min, xOffset+cellWidth*2.5, rowOrderYOffset+cellHeight/2);
       ctx.fillText(order.max, xOffset+cellWidth*3.5, rowOrderYOffset+cellHeight/2);
       ctx.fillText(order.price, xOffset+cellWidth*5, rowOrderYOffset+cellHeight/2);
+
     } else {
 
       ctx.strokeRect(xOffset+cellWidth*6, rowOrderYOffset, cellWidth*2, cellHeight);
@@ -213,7 +218,7 @@ const generate = async (orders, params) => {
 
   async function addAds() {
 
-    const advSpace = 8;
+    const advSpace = 4;
     const folderPath = `./advertisements/${params.adsFolderName}`;
 
     let fileName = "1-280х120.png";
@@ -232,18 +237,24 @@ const generate = async (orders, params) => {
     if (file3) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
+      ctx.lineWidth = lineWidthBig;
+      ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
     }
 
     fileName = "4-419х96.png";
     if (file4) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
+      ctx.lineWidth = lineWidthBig;
+      ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     fileName = "5-419х96.png";
     if (file5) {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
+      ctx.lineWidth = lineWidthBig;
+      ctx.strokeRect(xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     // bottom borders
