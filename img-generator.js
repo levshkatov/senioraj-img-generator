@@ -8,8 +8,8 @@ const exists = util.promisify(fs.stat);
 
 
 const WIDTH = 850;
-const xOffset = 0;
-const yOffset = 0;
+const xOffset = 2;
+const yOffset = 2;
 const lineWidthBig = 3;
 const lineWidthLittle = 1;
 const tableWidth = WIDTH - xOffset*2;
@@ -175,9 +175,9 @@ const generate = async (orders, params) => {
   const tableHeight = headerHeight+cellHeight*(4+maxNumOfRows);
 
   ctx.lineWidth = lineWidthBig;
-  ctx.strokeRect(xOffset, yOffset, tableWidth, tableHeight-headerHeight);
-  ctx.strokeRect(xOffset, yOffset, tableWidth/2, tableHeight-headerHeight);
-  ctx.strokeRect(xOffset, yOffset+tableWidth/2, tableWidth/2, tableHeight-headerHeight);
+  ctx.strokeRect(xOffset, yOffset+headerHeight, tableWidth, tableHeight-headerHeight);
+  ctx.strokeRect(xOffset, yOffset+headerHeight, tableWidth/2, tableHeight-headerHeight);
+  ctx.strokeRect(xOffset+tableWidth/2, yOffset+headerHeight, tableWidth/2, tableHeight-headerHeight);
 
   
 
@@ -238,7 +238,7 @@ const generate = async (orders, params) => {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
       ctx.lineWidth = lineWidthBig;
-      ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
+      // ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
     }
 
     fileName = "4-419х96.png";
@@ -246,7 +246,7 @@ const generate = async (orders, params) => {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
       ctx.lineWidth = lineWidthBig;
-      ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
+      // ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     fileName = "5-419х96.png";
@@ -254,7 +254,7 @@ const generate = async (orders, params) => {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
       ctx.lineWidth = lineWidthBig;
-      ctx.strokeRect(xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
+      // ctx.strokeRect(xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     // bottom borders
