@@ -238,7 +238,7 @@ const generate = async (orders, params) => {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
       ctx.lineWidth = lineWidthBig;
-      // ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
+      ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight/3, tableWidth, cellHeight*4);
     }
 
     fileName = "4-419х96.png";
@@ -246,7 +246,7 @@ const generate = async (orders, params) => {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
       ctx.lineWidth = lineWidthBig;
-      // ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
+      ctx.strokeRect(xOffset, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     fileName = "5-419х96.png";
@@ -254,7 +254,7 @@ const generate = async (orders, params) => {
       const adv = await loadImage(`${folderPath}/${fileName}`);
       ctx.drawImage(adv, xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
       ctx.lineWidth = lineWidthBig;
-      // ctx.strokeRect(xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
+      ctx.strokeRect(xOffset+tableWidth/2+advSpace, yOffset+tableHeight+cellHeight*(14/3), tableWidth/2-advSpace, cellHeight*4);
     }
 
     // bottom borders
