@@ -29,15 +29,32 @@ consoleStamp(console, {
 const log = console.log;
 const error = console.error;
 
-const mysql = mysqlObj.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "abcde4815162342",
-  database: "exchange",
-});
+let mysql = null;
+let mysqlQuery = null;
 
-const mysqlQuery = util.promisify(mysql.query).bind(mysql);
-// const mysqlConnect = util.promisify(mysql.connect).bind(mysql);
+const mysqlConnect = () => {
+  mysql = mysqlObj.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "abcde4815162342",
+    database: "exchange",
+  });
+
+  mysqlQuery = util.promisify(mysql.query).bind(mysql);
+  
+  mysql.on('error', err => {
+    error(colors.red(err));
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+      mysqlConnect();
+    } else {
+      throw err;
+    }
+  });
+}
+
+mysqlConnect();
+
+
 const writeFile = util.promisify(fs.writeFile);
 
 
