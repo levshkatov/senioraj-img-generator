@@ -35,9 +35,9 @@ let mysqlQuery = null;
 const mysqlConnect = () => {
   mysql = mysqlObj.createConnection({
     host: "localhost",
-    user: "root",
-    password: "abcde4815162342",
-    database: "exchange",
+    user: "*",
+    password: "*",
+    database: "*",
   });
 
   mysqlQuery = util.promisify(mysql.query).bind(mysql);
